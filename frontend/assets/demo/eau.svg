@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Illustration abstraite dune fuite">
+  <rect width="640" height="360" fill="#e7eef3"/>
+  <rect x="80" y="150" width="360" height="28" rx="14" fill="#8aa0b3"/>
+  <circle cx="470" cy="190" r="46" fill="#0f6e8c"/>
+  <circle cx="500" cy="230" r="22" fill="#1d4e89"/>
+</svg>

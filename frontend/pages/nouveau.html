@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nouveau signalement — QuartierAlert</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-page="nouveau" data-base="../">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div id="app-header"></div>
+  <main id="contenu" class="wrap">
+    <h1>Signaler un problème</h1>
+    <p class="lede">Décrivez ce que vous constatez. Le lieu textuel suffit : les coordonnées sont facultatives.</p>
+    <p class="demo-banner">Dans cette version, l’envoi reste dans cet onglet. Rien n’est enregistré sur un serveur et personne n’est prévenu.</p>
+    <div id="confirmation" class="notice notice-ok" hidden tabindex="-1"></div>
+    <form id="report-form" class="form-card form-grid" action="nouveau.html" method="post">
+      <div id="form-summary" class="notice notice-error" hidden role="alert"></div>
+      <label for="title">Titre (obligatoire)
+        <input id="title" name="title" required minlength="8" maxlength="120" autocomplete="off">
+      </label>
+      <p id="title-error" class="field-error" hidden></p>
+
+      <label for="description">Description (obligatoire)
+        <textarea id="description" name="description" required minlength="30" maxlength="2000"></textarea>
+      </label>
+      <p id="description-error" class="field-error" hidden></p>
+
+      <label for="category">Catégorie (obligatoire)
+        <select id="category" name="category" required>
+          <option value="">Choisir une catégorie</option>
+          <option value="dechets">Déchets</option>
+          <option value="eau">Eau et assainissement</option>
+          <option value="routes">Routes</option>
+          <option value="eclairage">Éclairage public</option>
+          <option value="environnement">Environnement</option>
+          <option value="inondation">Inondation</option>
+          <option value="autre">Autre</option>
+        </select>
+      </label>
+      <p id="category-error" class="field-error" hidden></p>
+
+      <label for="photo">Photo (facultatif)
+        <input id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp">
+      </label>
+      <p class="hint">JPEG, PNG ou WebP, 5 Mo maximum. La photo n’est pas enregistrée.</p>
+      <p id="photo-error" class="field-error" hidden></p>
+      <div id="photo-preview" hidden>
+        <img id="photo-preview-img" alt="Aperçu de la photo sélectionnée. Elle ne sera pas envoyée.">
+      </div>
+
+      <label for="locationText">Localisation (obligatoire)
+        <input id="locationText" name="locationText" required maxlength="180" autocomplete="off" placeholder="Ex. rue fictive, près du marché">
+      </label>
+      <p class="hint">Indiquez un lieu public approximatif. N’écrivez pas une adresse de domicile si ce n’est pas nécessaire.</p>
+      <p id="locationText-error" class="field-error" hidden></p>
+
+      <fieldset>
+        <legend>Coordonnées (facultatif)</legend>
+        <div class="coords">
+          <label for="latitude">Latitude
+            <input id="latitude" name="latitude" inputmode="decimal" autocomplete="off">
+          </label>
+          <label for="longitude">Longitude
+            <input id="longitude" name="longitude" inputmode="decimal" autocomplete="off">
+          </label>
+        </div>
+        <p id="coordinates-error" class="field-error" hidden></p>
+        <p id="latitude-error" class="field-error" hidden></p>
+        <p id="longitude-error" class="field-error" hidden></p>
+        <button type="button" id="use-location" class="button button-secondary">Utiliser ma position</button>
+        <p class="hint">La position n’est lue qu’après un clic sur ce bouton.</p>
+        <p id="geo-message" class="hint" hidden></p>
+      </fieldset>
+
+      <label class="check" for="accuracy">
+        <input id="accuracy" name="accuracy" type="checkbox" required>
+        <span>Je confirme que ces informations sont exactes, à ma connaissance. (obligatoire)</span>
+      </label>
+      <p id="accuracy-error" class="field-error" hidden></p>
+
+      <button type="submit" id="submit-report" class="button">Envoyer le signalement</button>
+    </form>
+  </main>
+  <div id="app-footer"></div>
+  <noscript><p class="notice notice-error wrap">Activez JavaScript pour valider et conserver un brouillon dans l’onglet. Cette page n’enregistre rien sur un serveur.</p></noscript>
+  <script type="module" src="../js/form.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carte — QuartierAlert</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../assets/vendor/leaflet/leaflet.css">
+</head>
+<body data-page="carte" data-base="../">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div id="app-header"></div>
+  <main id="contenu" class="wrap">
+    <h1>Carte des signalements</h1>
+    <div id="demo-banner"></div>
+    <form id="filters" class="filters" action="carte.html">
+      <label>Catégorie
+        <select id="filter-category" name="categorie"></select>
+      </label>
+      <label>Statut
+        <select id="filter-status" name="statut"></select>
+      </label>
+    </form>
+    <ul id="legend" class="legend" aria-label="Catégories affichées sur la carte"></ul>
+    <div id="map" class="map" role="region" aria-label="Carte des signalements géolocalisés">
+      <p class="loading" role="status">Chargement de la carte…</p>
+    </div>
+    <p id="map-notice" class="hint" hidden></p>
+    <p class="hint">Tuiles © les contributeurs OpenStreetMap. Le serveur public de tuiles n’est pas un service illimité : un déploiement réel devra prévoir son propre fournisseur. <a href="https://operations.osmfoundation.org/policies/tiles/">Politique d’utilisation</a>.</p>
+    <section aria-labelledby="sur-la-carte">
+      <h2 id="sur-la-carte">Sur la carte</h2>
+      <div id="located"></div>
+    </section>
+    <section aria-labelledby="sans-coordonnees">
+      <h2 id="sans-coordonnees">Sans coordonnées</h2>
+      <p class="hint">Ces signalements restent consultables. L’absence de GPS n’empêche pas de décrire un lieu.</p>
+      <div id="unlocated"></div>
+    </section>
+  </main>
+  <div id="app-footer"></div>
+  <noscript><p class="notice notice-error wrap">Activez JavaScript pour afficher la carte.</p></noscript>
+  <script src="../assets/vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="../js/carte.js"></script>
+</body>
+</html>

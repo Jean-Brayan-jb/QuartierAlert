@@ -1,4 +1,3 @@
--- Schéma initial QuartierAlert (à affiner)
--- Table reports (aperçu conceptuel)
--- categories, status, location, photos, user_id, ai suggestions, etc.
--- À compléter lors de l'implémentation avec Supabase PostgreSQL
+-- QuartierAlert — schéma PostgreSQL
+-- État : non rédigé. Les tables, contraintes, index et politiques RLS
+-- seront ajoutés en phase 4. Ce fichier ne crée aucune table.

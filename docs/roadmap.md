@@ -1,29 +1,41 @@
-# Feuille de route - QuartierAlert
+# Roadmap
 
-## Phase 1: Initialisation du dépôt (en cours)
-- [x] Structure, docs, configs
-- [ ] Premier commit Git
+## Phase 1 — Initialisation
 
-## Phase 2: Interface et parcours de signalement
-- [ ] Formulaire de signalement
-- [ ] Liste des signalements
-- [ ] Détails d'un signalement
+Faite. Structure, `package.json`, `.gitignore`, `.env.example`, documentation d’état. Pas de fonctionnalité métier.
 
-## Phase 3: API et persistance
-- [ ] Routes CRUD signalements
-- [ ] Connexion Supabase
-- [ ] Schéma/migrations
+## Phase 2 — Interface
 
-## Phase 4: Intégration de l'IA
-- [ ] Service Gemini côté serveur
-- [ ] Classification/résumé
-- [ ] Suggestions de rapprochement (vérifiables)
+Faite, sans API.
 
-## Phase 5: Tableau de bord et tests
-- [ ] Tableau de bord de suivi
-- [ ] Tests backend
-- [ ] Améliorations UX
+- Accueil, navigation, liste, détail, formulaire, carte, à propos, connexion.
+- Indicateurs calculés sur les fiches chargées. Bandeau « données fictives ».
+- Formulaire validé dans le navigateur. Brouillon d’onglet seulement.
+- États de chargement, d’erreur (`?erreur=1`) et de liste vide.
+- Leaflet 1.9.4, filtres, signalements sans coordonnées.
 
-## Phase 6: Démonstration et pitch
-- [ ] Démo fonctionnelle
-- [ ] Préparation pitch
+Reste pour plus tard : administration, statuts modifiables, authentification réelle.
+
+## Phase 3 — Backend
+
+Express, `GET /api/health`, routes de signalement en mémoire ou avec une couche remplaçable, validation, erreurs centralisées, tests.
+
+## Phase 4 — Base de données
+
+Migrations, contraintes, RLS, jeu de démonstration qui ne touche pas à des données de production.
+
+## Phase 5 — Intégration
+
+Le formulaire et les listes lisent et écrivent l’API. Les statistiques viennent des données enregistrées.
+
+## Phase 6 — Gemini
+
+Classification, résumé, priorité indicative, suggestions de doublons. Fonctionnement dégradé si la clé est absente. Tests sur réponses simulées.
+
+## Phase 7 — Carte et administration
+
+Marqueurs, filtres, tableau de bord, historique, changement de statut réservé aux rôles prévus.
+
+## Phase 8 — Finalisation
+
+Tests, affichage mobile, permissions, variables d’environnement, documentation, scénario de démonstration.

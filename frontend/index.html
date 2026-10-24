@@ -1,28 +1,66 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuartierAlert - Accueil</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QuartierAlert — Ensemble, améliorons notre quartier</title>
+  <meta name="description" content="Signalez les problèmes de votre environnement, suivez leur évolution et consultez les signalements de démonstration.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
 </head>
-<body>
-  <header>
-    <h1>QuartierAlert</h1>
-    <p>Un problème signalé, une communauté mobilisée.</p>
-  </header>
-  <main>
-    <section>
-      <h2>Prototype en initialisation</h2>
-      <p>Ce frontend est minimal. Pages prévues : signaler un problème, liste des signalements, détails d'un signalement.</p>
-      <nav>
-        <a href="pages/report.html">Signaler un problème</a> |
-        <a href="pages/reports.html">Voir les signalements</a>
-      </nav>
+<body data-page="accueil" data-base="">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div id="app-header"></div>
+  <main id="contenu" class="wrap">
+    <section class="hero">
+      <div>
+        <h1>Ensemble, améliorons notre quartier.</h1>
+        <p class="lede">Signalez les problèmes de votre environnement, suivez leur évolution et contribuez à une communauté mieux informée.</p>
+        <div class="actions">
+          <a class="button" href="pages/nouveau.html">Signaler un problème</a>
+          <a class="button button-secondary" href="pages/signalements.html">Explorer les signalements</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <h2>Ce que permet un signalement</h2>
+        <ol>
+          <li>Décrire un problème local.</li>
+          <li>Le rendre consultable.</li>
+          <li>Suivre le statut affiché.</li>
+        </ol>
+        <p class="hint">Un signalement n’est pas transmis automatiquement à une autorité.</p>
+      </aside>
+    </section>
+
+    <div id="demo-banner"></div>
+
+    <section aria-labelledby="indicateurs-titre">
+      <h2 id="indicateurs-titre">Indicateurs communautaires</h2>
+      <div id="stats" aria-live="polite">
+        <p class="loading" role="status">Chargement des indicateurs…</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="recents-titre">
+      <h2 id="recents-titre">Signalements récents</h2>
+      <div id="recent" aria-live="polite">
+        <p class="loading" role="status">Chargement des signalements…</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="carte-titre">
+      <h2 id="carte-titre">Carte communautaire</h2>
+      <div id="map" class="map map-compact" role="region" aria-label="Carte des signalements de démonstration">
+        <p class="loading" role="status">Chargement de la carte…</p>
+      </div>
+      <p id="map-notice" class="hint" hidden></p>
+      <p><a href="pages/carte.html">Ouvrir la carte détaillée</a></p>
     </section>
   </main>
-  <script src="js/main.js"></script>
+  <div id="app-footer"></div>
+  <noscript><p class="notice notice-error wrap">Activez JavaScript pour charger les signalements de démonstration.</p></noscript>
+  <script src="assets/vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="js/home.js"></script>
 </body>
 </html>

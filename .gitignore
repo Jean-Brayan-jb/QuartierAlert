@@ -1,37 +1,31 @@
-# Dependencies
+# Dépendances
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 
-# Environment
+# Secrets et environnement local
 .env
 .env.*
 !.env.example
 
-# Logs
-logs
+# Journaux, couverture et caches
 *.log
-*.out
-*.err
-
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Tests
+npm-debug.log*
 coverage/
 .nyc_output/
 
-# Build
+# Sorties de build
 dist/
 build/
-.cache/
 
-# Temporary
-tmp/
-temp/
+# Fichiers téléversés en local (les photos ne doivent pas être versionnées)
+uploads/
+
+# Supabase CLI
+supabase/.temp/
+supabase/.branches/
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
 *.swp
-*.swo
+.idea/
+.vscode/

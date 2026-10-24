@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signalements — QuartierAlert</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-page="signalements" data-base="../">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div id="app-header"></div>
+  <main id="contenu" class="wrap">
+    <h1>Signalements</h1>
+    <div id="demo-banner"></div>
+    <form id="filters" class="filters" action="signalements.html">
+      <label>Catégorie
+        <select id="filter-category" name="categorie"></select>
+      </label>
+      <label>Statut
+        <select id="filter-status" name="statut"></select>
+      </label>
+    </form>
+    <p id="result-count" class="hint" aria-live="polite">Chargement des signalements…</p>
+    <div id="results" aria-live="polite">
+      <p class="loading" role="status">Chargement des signalements…</p>
+    </div>
+  </main>
+  <div id="app-footer"></div>
+  <noscript><p class="notice notice-error wrap">Activez JavaScript pour afficher la liste.</p></noscript>
+  <script type="module" src="../js/list.js"></script>
+</body>
+</html>

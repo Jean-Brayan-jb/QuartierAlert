@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion — QuartierAlert</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-page="connexion" data-base="../">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <div id="app-header"></div>
+  <main id="contenu" class="wrap">
+    <article class="prose">
+      <h1>Connexion</h1>
+      <p class="notice notice-error">L’authentification n’est pas disponible. Aucun mot de passe n’est demandé, et aucun compte n’est créé.</p>
+      <p>La connexion prévue utilisera Supabase Auth. Le rôle d’une personne ne sera pas choisi dans le navigateur. La clé <code>service_role</code> restera sur le serveur.</p>
+      <h2>Rôles prévus</h2>
+      <ul>
+        <li>Visiteur : consulter les signalements publics et la carte.</li>
+        <li>Utilisateur authentifié : créer un signalement.</li>
+        <li>Modérateur : examiner un contenu et ajouter une note.</li>
+        <li>Administrateur : superviser les statuts selon des règles fixes.</li>
+      </ul>
+      <p>Pour préparer un projet Supabase plus tard : <code>SUPABASE_URL</code> et <code>SUPABASE_ANON_KEY</code>. Ces valeurs ne sont pas lues par l’interface actuelle.</p>
+      <p><a class="button button-secondary" href="signalements.html">Revenir aux signalements</a></p>
+    </article>
+  </main>
+  <div id="app-footer"></div>
+  <script type="module" src="../js/login.js"></script>
+</body>
+</html>

@@ -1,13 +1,19 @@
-# API - QuartierAlert
+# API
 
-## État
-Documentation préliminaire. Endpoints à implémenter.
+Aucun endpoint n’est implémenté.
 
-## Prévu
-- `GET /health` - Santé du service (présent en version minimale)
-- `POST /reports` - Créer un signalement
-- `GET /reports` - Lister les signalements (filtres)
-- `GET /reports/:id` - Détails d'un signalement
-- `PUT/PATCH /reports/:id/status` - Mise à jour statut (selon rôles)
+`GET /api/health` et les routes de signalements, d’administration et de statistiques seront ajoutés en phase 3, puis documentés ici avec la méthode, les codes de réponse et les permissions.
 
-Toutes les clés sensibles (Gemini) restent côté serveur.
+Liste prévue, non disponible :
+
+- `GET /api/health`
+- `GET /api/reports`
+- `GET /api/reports/:id`
+- `POST /api/reports`
+- `PATCH /api/reports/:id`
+- `GET /api/reports/:id/history`
+- `POST /api/reports/:id/ai-analysis`
+- `GET /api/reports/:id/related`
+- `PATCH /api/admin/reports/:id/status`
+- `POST /api/admin/reports/:id/moderation`
+- `GET /api/stats`

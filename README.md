@@ -1,144 +1,140 @@
 # QuartierAlert
 
-**Slogan :** « Un problème signalé, une communauté mobilisée. »
+« Un problème signalé, une communauté mobilisée. »
 
-**Description courte :** Plateforme de signalement et de suivi des problèmes communautaires dans les quartiers, notamment au Togo. Elle permet aux habitants de publier, consulter et suivre l'évolution des incidents affectant le cadre de vie.
+Application web communautaire pour signaler les problèmes d’un quartier, les consulter et suivre leur évolution. Projet civic-tech prévu pour un hackathon au Togo.
 
-> **Capture d'écran :** Emplacement prévu — *non disponible pour le moment*.  
-> **Démonstration :** Emplacement prévu (URL à définir) — *non disponible pour le moment*.
+L’intelligence artificielle doit aider à organiser l’information. Elle ne vérifie pas les faits à la place des personnes et ne résout pas les problèmes physiques.
 
-## A) Le problème
-Il est souvent difficile pour les habitants de signaler efficacement un problème dans leur quartier (dépôts sauvages, fuites d'eau, voirie endommagée, lampadaires défectueux, assainissement, etc.) et de savoir s'il est pris en compte. Ces difficultés sont présentées ici comme des **problèmes à valider sur le terrain**, et non comme des statistiques déjà démontrées.
+## Problème et solution
 
-## B) Notre solution
-QuartierAlert facilite la **création**, la **consultation**, la **catégorisation** et le **suivi** des signalements. Une assistance IA pourra proposer classification, résumé et rapprochement entre signalements similaires, mais **ses propositions devront rester vérifiables par un humain**.
+Les habitants constatent des dépôts de déchets, des fuites d’eau, des voies endommagées, des lampadaires en panne, des problèmes d’assainissement ou d’inondation, sans outil commun pour les décrire et les suivre.
 
-## C) Objectifs
-- **Prototype hackathon :** Structure claire, parcours de signalement minimal, base API, documentation prête pour l'équipe.
-- **Fonctionnalités futures :** Authentification complète, tableau de bord avancé, intégration avec organismes compétents (si partenariat confirmé), modération renforcée.
-- **À valider sur le terrain :** Pertinence des catégories, adoption, efficacité du suivi — nécessitent une validation réelle.
+QuartierAlert doit transformer un constat local en signalement structuré, consultable et traçable. Un signalement n’est pas transmis automatiquement à une mairie ou à une institution : aucun partenaire institutionnel n’est déclaré.
 
-## D) Fonctionnalités
-### Statut
-- **Prévu** / **En développement** / **Disponible et testé**
+## Fonctionnalités et état d’avancement
 
-### Ciblées pour la première version
-| Fonctionnalité | Statut | Détails |
-|---|---|---|
-| Création d'un signalement (titre, description, catégorie) | Prévu | À implémenter |
-| Ajout facultatif d'une photo | Prévu | Via Supabase Storage (à intégrer) |
-| Localisation ou indication textuelle du lieu | Prévu | À implémenter |
-| Consultation des signalements | Prévu | À implémenter |
-| Filtrage par catégorie et statut | Prévu | À implémenter |
-| Suivi de l'état d'un signalement | Prévu | À implémenter |
-| Assistance IA (classification et résumé) | Prévu | Gemini côté serveur uniquement |
-| Suggestions de rapprochement entre signalements similaires | Prévu | À valider humainement |
-| Tableau de bord de suivi | Prévu | À implémenter |
-| Interface responsive | Prévu | Base CSS responsive présente |
+**Phase 1 — initialisation : en place.**
 
-*Aucune fonctionnalité n'est marquée comme terminée sans preuve dans le code.*
+**Phase 2 — interface : en place, en démonstration.** Les pages se parlent entre elles. Les chiffres sont calculés à partir de fiches fictives, plus les brouillons saisis dans l’onglet. Rien n’est envoyé à un serveur.
 
-## E) Démonstration
-- **URL de démonstration :** À définir — *non disponible pour le moment*.
+| Fonctionnalité | État |
+| --- | --- |
+| Accueil, liste, détail, formulaire, carte, à propos, connexion | Visibles, données fictives ou brouillon d’onglet |
+| Administration et changement de statut | Non commencé (phase 7) |
+| API REST | Non commencé (phase 3) |
+| PostgreSQL, Supabase Auth, RLS | Non commencé (phase 4). La page Connexion ne crée pas de compte |
+| Persistance d’un signalement | Non commencé (phase 5). `sessionStorage` seulement |
+| Classification, résumé et doublons (Gemini) | Non commencé (phase 6) |
+| Tests | `npm test` couvre la validation, les calculs, les fiches fictives et les pages. Le parcours navigateur se vérifie à part |
 
-## F) Architecture technique
-**Technologies et rôles :**
-- **Frontend** : HTML5, CSS3, JavaScript natif — Interface utilisateur
-- **Backend** : Node.js + Express — API REST
-- **Base de données** : Supabase PostgreSQL — Persistance
-- **Authentification** : Supabase Auth — À intégrer ultérieurement
-- **Stockage photos** : Supabase Storage — À intégrer ultérieurement
-- **IA** : Gemini API — Via le backend uniquement (clé jamais côté client)
-- **Cartographie** : Leaflet — Avec source de tuiles adaptée au contexte
-- **Tests** : Node.js test runner (léger)
+## Technologies
 
-**Trajet d'une requête :** Interface (frontend) → API backend (Express) → Service concerné (métier/IA) → Base de données (Supabase)
+L’interface est en HTML, CSS et JavaScript, sans framework. Leaflet 1.9.4 (dernière version publiée sur npm au moment de l’intégration) est copié dans `frontend/assets/vendor/leaflet/` sous licence BSD 2-Clause.
 
-## G) Arborescence
-```
-QuartierAlert/
-├── README.md, LICENSE, .gitignore, .editorconfig, .env.example, package.json
-├── CONTRIBUTING.md, SECURITY.md, CHANGELOG.md
-├── docs/ (architecture, setup, roadmap, api, database, team-workflow)
-├── frontend/ (index.html, pages/, css/, js/, assets/)
-├── backend/src/ (app.js, server.js, config/, routes/, controllers/, services/, middlewares/, validators/, utils/)
-├── database/ (migrations/, seeds/, schema.sql)
-├── tests/ (backend/, fixtures/)
-├── .github/ (ISSUE_TEMPLATE/, PULL_REQUEST_TEMPLATE.md, workflows/ci.yml)
-└── scripts/
-```
+La suite prévue :
+- Backend : Node.js, Express, API REST.
+- Données et comptes : Supabase (PostgreSQL, Auth, Storage si les photos sont configurées).
+- Assistance : API Gemini, côté serveur uniquement.
+- Tests : exécuteur de tests Node.js (`node --test`).
 
-## H) Prérequis
-- **Node.js** : >= 18.0.0 *(à confirmer selon environnement)*
-- **npm** : >= 9.0.0 *(à confirmer selon environnement)*
-- **Git**
+Vérifié sur cette machine lors de l’initialisation : Node.js v26.11.1, npm 12.2.0. Le `package.json` demande Node.js 20 ou plus.
 
-## I) Installation
+## Installation
+
 ```bash
-# 1. Cloner le dépôt
-git clone <url-du-depot>
+git clone <url-du-depot> QuartierAlert
 cd QuartierAlert
+```
 
-# 2. Installer les dépendances
-npm install
+Aucune dépendance npm n’est déclarée pour l’instant. `npm install` n’est pas nécessaire tant que la phase 3 n’a pas ajouté Express et les autres paquets.
 
-# 3. Configurer les variables d'environnement
+## Configuration
+
+```bash
 cp .env.example .env
-# Compléter .env avec vos valeurs (aucun secret réel)
+```
 
-# 4. Démarrer le backend
+Renseigner `.env` seulement au moment où le serveur et Supabase existeront. Les noms attendus sont dans `.env.example`. Le fichier `.env` est ignoré par Git.
+
+Variables prévues :
+
+| Variable | Usage |
+| --- | --- |
+| `PORT` | Port HTTP du backend |
+| `NODE_ENV` | `development` ou `production` |
+| `CORS_ORIGIN` | Origines autorisées, séparées par des virgules |
+| `SUPABASE_URL` | URL du projet Supabase |
+| `SUPABASE_ANON_KEY` | Clé anon, soumise aux politiques RLS |
+| `SUPABASE_SERVICE_ROLE_KEY` | Backend seulement. Ne jamais l’envoyer au navigateur |
+| `GEMINI_API_KEY` | Backend seulement. L’application devra fonctionner sans elle |
+
+Aucun projet Supabase ni clé Gemini n’est fourni avec ce dépôt.
+
+## Démarrage
+
+Interface :
+
+```bash
+npm run frontend
+```
+
+Ouvrir `http://127.0.0.1:4173`. Le module JavaScript ne fonctionne pas en ouvrant le fichier directement (`file://`). Le port se change avec `FRONTEND_PORT` dans l’environnement de la commande, pas via `.env` : ce fichier n’est pas encore lu.
+
+```bash
 npm start
+```
 
-# 5. Ouvrir/servir le frontend
-# Ouvrir frontend/index.html dans le navigateur ou : npx serve frontend
+Cette commande échoue volontairement. Le serveur API n’existe pas encore (`backend/src/server.js` sera créé en phase 3).
 
-# 6. Exécuter les tests
+## Tests
+
+```bash
 npm test
 ```
 
-## J) Variables d'environnement
-Voir `.env.example`. Variables prévues :
-- `PORT` (défaut 3000)
-- `SUPABASE_URL`
-- `SUPABASE_ANON_KEY` (si nécessaire côté serveur)
-- `SUPABASE_SERVICE_ROLE_KEY` (uniquement côté serveur si nécessaire)
-- `GEMINI_API_KEY` (obligatoire si IA activée, côté serveur uniquement)
-- `NODE_ENV`
+22 tests Node.js passent sur cette machine après la phase 2 : validation, statistiques, fiches fictives, chemins du serveur statique et présence des pages. Cela ne remplace pas une vérification dans le navigateur.
 
-**Aucun secret réel ne doit être présent dans Git.**
+## Structure
 
-## K) Utilisation
-Parcours utilisateur prévu (non opérationnel pour l'instant) :
-1. Consulter les signalements sur la page liste/carte
-2. Signaler un problème (formulaire) avec localisation
-3. Suivre l'évolution du signalement
-4. Possibilité de suggestions IA vérifiables par un humain
+```text
+frontend/          pages, styles, scripts, illustrations, Leaflet 1.9.4
+backend/src/       dossiers vides (API en phase 3)
+database/          schema.sql commenté, migrations et seeds vides
+docs/              documentation d’état
+tests/             validation, statistiques, données, pages, chemins
+scripts/           serveur statique de l’interface
+```
 
-## L) Collaboration
-Voir [CONTRIBUTING.md](CONTRIBUTING.md) et [docs/team-workflow.md](docs/team-workflow.md).
+`backend/src/app.js` et `backend/src/server.js` ne sont pas encore créés.
 
-## M) Sécurité et confidentialité
-- **Validation** : Entrées à valider côté serveur
-- **Abus** : Protection à prévoir
-- **Accès** : Règles à définir selon rôles
-- **Clés API** : Uniquement côté serveur
-- **Photos/PII** : Prudence sur collecte/stockage
-- **Localisation** : Respect de la vie privée
-- **Modération** : À prévoir
-- **IA** : Vérification humaine obligatoire des propositions
+## Sécurité
 
-## N) Roadmap
-Voir [docs/roadmap.md](docs/roadmap.md) - Phases 1-6.
+Mesures déjà en place :
 
-## O) Limites connues
-- Prototype de hackathon, non prêt pour production
-- Beaucoup de fonctionnalités marquées "prévu"
-- Dépendances externes : Supabase, Gemini API (configuration requise)
-- Auth/stockage/photos non implémentés
-- Carte Leaflet non configurée avec source de tuiles définitive
-- Licence non choisie
+- `.env` et les variantes locales sont ignorés par Git.
+- `.env.example` ne contient aucune valeur secrète.
+- La clé `service_role` est documentée comme réservée au backend.
+- Le serveur statique refuse les chemins qui sortent de `frontend/`, n’accepte que GET et HEAD, et envoie des en-têtes de base.
+- Les textes saisis sont affichés comme texte, pas comme HTML.
+- Une photo locale dont l’adresse n’est pas une illustration `assets/demo/` n’est pas affichée.
+- La position GPS n’est demandée qu’au clic.
 
-## P) Contribution, licence et contact
-- **Contribution** : [CONTRIBUTING.md](CONTRIBUTING.md)
-- **Licence** : *À définir* (voir [LICENSE](LICENSE))
-- **Contact/Membres/Partenaires** : *Non renseignés* (à décider par l'équipe)
+Mesures pas encore en place : validation serveur, CORS de l’API, limitation de fréquence, authentification, politiques RLS. Les en-têtes du serveur statique ne protègent pas une future API. Prévoir Supabase ne rend pas l’application sûre.
+
+## Roadmap
+
+L’ordre retenu est décrit dans [docs/roadmap.md](docs/roadmap.md). Prochaine étape proposée : phase 3, l’API.
+
+## Limites
+
+- Aucune donnée n’est enregistrée sur un serveur. Un brouillon d’onglet disparaît à sa fermeture.
+- Les indicateurs portent sur des fiches fictives, annoncées comme telles.
+- Aucun compte ne peut être créé.
+- La carte dépend du serveur public de tuiles OpenStreetMap, qui n’est pas un service garanti.
+- L’assistance IA n’existe pas.
+- Aucun organisme public n’est partenaire du projet.
+
+## Contribution
+
+Voir [CONTRIBUTING.md](CONTRIBUTING.md). Branche par fonctionnalité, pas de secret dans Git, pas de fusion sans avoir exécuté les tests qui existent.

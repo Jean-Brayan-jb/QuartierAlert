@@ -1,29 +1,16 @@
 {
   "name": "quartieralert",
   "version": "0.1.0",
-  "description": "Plateforme de signalement et suivi des problèmes communautaires au Togo",
-  "main": "backend/src/server.js",
-  "scripts": {
-    "start": "node backend/src/server.js",
-    "dev": "node backend/src/server.js",
-    "test": "node --test tests/backend/*.test.js",
-    "lint": "echo 'Lint non configuré - à définir'"
-  },
-  "keywords": [
-    "quartier",
-    "signalement",
-    "communauté",
-    "togo",
-    "civic-tech"
-  ],
-  "author": "Équipe QuartierAlert",
+  "private": true,
+  "description": "QuartierAlert — signalement et suivi des problèmes de quartier.",
   "license": "UNLICENSED",
+  "type": "module",
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=20"
   },
-  "dependencies": {
-    "express": "^4.19.2"
-  },
-  "devDependencies": {}
+  "scripts": {
+    "start": "node -e \"console.error('QuartierAlert : le serveur API n’est pas encore implémenté (prévu en phase 3). Interface : npm run frontend'); process.exit(1)\"",
+    "frontend": "node scripts/serve-frontend.js",
+    "test": "node --test"
+  }
 }
