@@ -1,0 +1,4 @@
+-- Schéma initial QuartierAlert (à affiner)
+-- Table reports (aperçu conceptuel)
+-- categories, status, location, photos, user_id, ai suggestions, etc.
+-- À compléter lors de l'implémentation avec Supabase PostgreSQL

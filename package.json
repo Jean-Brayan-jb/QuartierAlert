@@ -1,0 +1,29 @@
+{
+  "name": "quartieralert",
+  "version": "0.1.0",
+  "description": "Plateforme de signalement et suivi des problèmes communautaires au Togo",
+  "main": "backend/src/server.js",
+  "scripts": {
+    "start": "node backend/src/server.js",
+    "dev": "node backend/src/server.js",
+    "test": "node --test tests/backend/*.test.js",
+    "lint": "echo 'Lint non configuré - à définir'"
+  },
+  "keywords": [
+    "quartier",
+    "signalement",
+    "communauté",
+    "togo",
+    "civic-tech"
+  ],
+  "author": "Équipe QuartierAlert",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {}
+}
