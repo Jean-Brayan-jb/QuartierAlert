@@ -9,10 +9,11 @@ Faite. Structure, `package.json`, `.gitignore`, `.env.example`, documentation d�
 Faite, sans API.
 
 - Accueil, navigation, liste, détail, formulaire, carte, à propos, connexion.
-- Indicateurs calculés sur les fiches chargées. Bandeau « données fictives ».
-- Formulaire validé dans le navigateur. Brouillon d’onglet seulement.
-- États de chargement, d’erreur (`?erreur=1`) et de liste vide.
-- Leaflet 1.9.4, filtres, signalements sans coordonnées.
+- Indicateurs, répartition par catégorie et par jour, calculés sur les fiches chargées. Bandeau « données fictives ».
+- Fiche détaillée avec carte lorsque des coordonnées existent.
+- Formulaire validé dans le navigateur, y compris le type et l’extension de la photo. Brouillon d’onglet seulement.
+- Filtres avec réinitialisation. États de chargement, d’erreur (`?erreur=1`) et de liste vide.
+- Leaflet 1.9.4, signalements sans coordonnées signalés sur l’accueil et listés sur la carte.
 
 Reste pour plus tard : administration, statuts modifiables, authentification réelle.
 

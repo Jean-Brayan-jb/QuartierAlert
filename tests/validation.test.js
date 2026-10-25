@@ -64,12 +64,13 @@ test('conserve une description hostile comme texte, sans statut', () => {
   assert.equal(Object.hasOwn(result.value, 'status'), false);
 });
 
-test('contrôle le type et la taille d’une photo', () => {
+test('contrôle le type, l’extension et la taille d’une photo', () => {
   assert.equal(validatePhoto(null), null);
-  assert.match(validatePhoto({ type: 'image/gif', size: 10 }), /JPEG/);
-  assert.match(validatePhoto({ type: 'image/png', size: PHOTO_MAX_BYTES + 1 }), /5 Mo/);
+  assert.match(validatePhoto({ type: 'image/gif', size: 10, name: 'photo.gif' }), /JPEG/);
+  assert.match(validatePhoto({ type: 'image/png', size: 100, name: 'photo.gif' }), /JPEG/);
+  assert.match(validatePhoto({ type: 'image/png', size: PHOTO_MAX_BYTES + 1, name: 'photo.png' }), /5 Mo/);
   const result = validateReport(validInput({
-    photo: { type: 'image/webp', size: 1000 },
+    photo: { type: 'image/webp', size: 1000, name: 'photo.webp' },
     latitude: 6.2,
     longitude: 1.2,
   }));

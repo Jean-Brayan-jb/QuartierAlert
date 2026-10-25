@@ -20,7 +20,7 @@ QuartierAlert doit transformer un constat local en signalement structuré, consu
 
 | Fonctionnalité | État |
 | --- | --- |
-| Accueil, liste, détail, formulaire, carte, à propos, connexion | Visibles, données fictives ou brouillon d’onglet |
+| Accueil, liste, détail, formulaire, carte, à propos, connexion | Visibles. Indicateurs, répartition et carte de fiche calculés sur les données chargées |
 | Administration et changement de statut | Non commencé (phase 7) |
 | API REST | Non commencé (phase 3) |
 | PostgreSQL, Supabase Auth, RLS | Non commencé (phase 4). La page Connexion ne crée pas de compte |

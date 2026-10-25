@@ -1,4 +1,5 @@
 import { CATEGORIES, STATUS_LABELS } from './constants.js';
+import { countsByDay } from './stats.js';
 import { safeImagePath } from './reports.js';
 
 export function categoryLabel(id) {
@@ -7,6 +8,15 @@ export function categoryLabel(id) {
 
 export function statusLabel(status) {
   return STATUS_LABELS[status] ?? 'Statut inconnu';
+}
+
+export function formatDay(day) {
+  const date = new Date(`${day}T12:00:00.000Z`);
+  if (Number.isNaN(date.getTime())) return 'Date inconnue';
+  return new Intl.DateTimeFormat('fr-FR', {
+    dateStyle: 'medium',
+    timeZone: 'Africa/Lome',
+  }).format(date);
 }
 
 export function formatDate(iso) {
@@ -150,6 +160,51 @@ export function renderStats(host, stats) {
   host.replaceChildren(grid, caption);
 }
 
+function barRow(label, count, max) {
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  const name = document.createElement('span');
+  name.textContent = label;
+  const track = document.createElement('div');
+  track.className = 'bar';
+  const fill = document.createElement('span');
+  const width = max > 0 ? Math.round((count / max) * 100) : 0;
+  fill.style.width = `${width}%`;
+  track.append(fill);
+  const value = document.createElement('span');
+  value.textContent = String(count);
+  row.append(name, track, value);
+  return row;
+}
+
+export function renderDistribution(host, stats, reports) {
+  const categoryTitle = document.createElement('h3');
+  categoryTitle.textContent = 'Par catégorie';
+  const categories = document.createElement('div');
+  const maxCategory = Math.max(0, ...Object.values(stats.byCategory));
+  for (const category of CATEGORIES) {
+    categories.append(barRow(category.label, stats.byCategory[category.id] || 0, maxCategory));
+  }
+
+  const timeTitle = document.createElement('h3');
+  timeTitle.textContent = 'Par jour';
+  const days = countsByDay(reports);
+  const timeline = document.createElement('div');
+  if (days.length === 0) {
+    timeline.append(emptyState('Aucune date', 'Les fiches chargées n’ont pas de date exploitable.'));
+  } else {
+    const maxDay = Math.max(...days.map((item) => item.count));
+    for (const item of days) {
+      timeline.append(barRow(formatDay(item.day), item.count, maxDay));
+    }
+  }
+
+  const note = document.createElement('p');
+  note.className = 'hint';
+  note.textContent = 'Ces répartitions sont calculées sur les fiches chargées. Ce ne sont pas des résultats officiels.';
+  host.replaceChildren(categoryTitle, categories, timeTitle, timeline, note);
+}
+
 export function renderLegend(list) {
   list.replaceChildren();
   for (const category of CATEGORIES) {
@@ -200,6 +255,11 @@ export function renderDetail(report, base) {
     image.src = `${base}${imagePath}`;
     image.alt = 'Illustration de démonstration. Ce n’est pas une photo du lieu.';
     article.append(image);
+  } else {
+    const missingImage = document.createElement('p');
+    missingImage.className = 'hint';
+    missingImage.textContent = 'Aucune image n’est associée à cette fiche.';
+    article.append(missingImage);
   }
 
   const meta = document.createElement('p');

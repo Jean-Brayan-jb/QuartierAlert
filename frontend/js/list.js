@@ -28,15 +28,19 @@ function render(reports) {
     status: statusSelect.value,
   });
   count.textContent = countLabel(filtered.length);
-  if (filtered.length === 0) {
-    host.replaceChildren(
-      emptyState(
+    if (filtered.length === 0) {
+      const empty = emptyState(
         'Aucun signalement',
         'Aucun élément ne correspond à ces filtres. Effacez un filtre ou créez un brouillon de démonstration.',
-      ),
-    );
-    return;
-  }
+      );
+      const link = document.createElement('a');
+      link.className = 'button';
+      link.href = 'nouveau.html';
+      link.textContent = 'Signaler un problème';
+      empty.append(link);
+      host.replaceChildren(empty);
+      return;
+    }
   const grid = document.createElement('div');
   grid.className = 'card-grid';
   grid.append(...filtered.map((report) => reportCard(report, base)));
@@ -51,6 +55,11 @@ async function showList() {
     render(reports);
     form.addEventListener('submit', (event) => event.preventDefault());
     form.addEventListener('change', () => render(reports));
+    document.querySelector('#reset-filters').addEventListener('click', () => {
+      categorySelect.value = '';
+      statusSelect.value = '';
+      render(reports);
+    });
   } catch {
     count.textContent = '';
     host.replaceChildren(

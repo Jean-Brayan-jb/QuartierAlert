@@ -27,3 +27,15 @@ export function computeStats(reports) {
     byCategory,
   };
 }
+
+export function countsByDay(reports) {
+  const counts = new Map();
+  for (const report of Array.isArray(reports) ? reports : []) {
+    const day = String(report?.createdAt || '').slice(0, 10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
+    counts.set(day, (counts.get(day) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([day, count]) => ({ day, count }));
+}

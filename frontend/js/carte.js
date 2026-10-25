@@ -70,6 +70,11 @@ async function showMap() {
     render(reports);
     form.addEventListener('submit', (event) => event.preventDefault());
     form.addEventListener('change', () => render(reports));
+    document.querySelector('#reset-filters').addEventListener('click', () => {
+      categorySelect.value = '';
+      statusSelect.value = '';
+      render(reports);
+    });
   } catch {
     mapHost.replaceChildren(errorBox('La carte n’a pas pu charger ses signalements.', () => location.assign('carte.html')));
     locatedHost.replaceChildren();

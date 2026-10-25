@@ -229,6 +229,28 @@ main section { margin: 2rem 0 2.4rem; }
 
 .hint { color: var(--muted); font-size: 0.95rem; }
 
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) 1fr 2rem;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0.4rem 0;
+}
+
+.bar {
+  height: 0.55rem;
+  background: #e7eef3;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  background: var(--navy);
+  border-radius: 999px;
+}
+
 .card-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
 
 .card { overflow: hidden; animation: rise 0.25s ease; }
@@ -418,7 +440,8 @@ textarea[aria-invalid="true"] { border-color: var(--danger); }
   .hero,
   .stat-grid,
   .facts,
-  .coords { grid-template-columns: 1fr; }
+  .coords,
+  .bar-row { grid-template-columns: 1fr; }
 
   .nav-toggle {
     display: inline-flex;

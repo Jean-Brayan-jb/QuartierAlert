@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { DEMO_REPORTS } from '../frontend/js/demo-data.js';
-import { computeStats } from '../frontend/js/stats.js';
+import { computeStats, countsByDay } from '../frontend/js/stats.js';
 
 test('calcule des zéros quand la liste est vide', () => {
   const stats = computeStats([]);
@@ -38,6 +38,13 @@ test('calcule les indicateurs de démonstration sans nombre figé dans la foncti
   assert.equal(stats.byCategory.autre, 0);
 });
 
+test('regroupe les fiches fictives par jour, du plus ancien au plus récent', () => {
+  const days = countsByDay(DEMO_REPORTS);
+  assert.equal(days.length, DEMO_REPORTS.length);
+  assert.deepEqual(days[0], { day: '2026-10-15', count: 1 });
+  assert.deepEqual(days.at(-1), { day: '2026-10-24', count: 1 });
+  assert.deepEqual(countsByDay([{ createdAt: 'pas une date' }]), []);
+});
 test('ne range pas un statut ou une catégorie inconnus dans les indicateurs nommés', () => {
   const stats = computeStats([{ status: 'urgent', category: 'securite' }]);
   assert.equal(stats.total, 1);

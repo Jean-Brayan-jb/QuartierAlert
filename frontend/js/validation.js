@@ -3,6 +3,7 @@ import {
   DESCRIPTION_MAX,
   DESCRIPTION_MIN,
   LOCATION_MAX,
+  PHOTO_EXTENSIONS,
   PHOTO_MAX_BYTES,
   PHOTO_TYPES,
   TITLE_MAX,
@@ -11,7 +12,11 @@ import {
 
 export function validatePhoto(file) {
   if (!file) return null;
-  if (!PHOTO_TYPES.includes(file.type)) {
+  const name = String(file.name || '').toLowerCase();
+  const extension = name.includes('.') ? name.slice(name.lastIndexOf('.')) : '';
+  const typeOk = PHOTO_TYPES.includes(file.type);
+  const extensionOk = name === '' || PHOTO_EXTENSIONS.includes(extension);
+  if (!typeOk || !extensionOk) {
     return 'Format accepté : JPEG, PNG ou WebP.';
   }
   if (typeof file.size !== 'number' || file.size > PHOTO_MAX_BYTES) {

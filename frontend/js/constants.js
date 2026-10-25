@@ -33,5 +33,6 @@ export const DESCRIPTION_MAX = 2000;
 export const LOCATION_MAX = 180;
 export const PHOTO_MAX_BYTES = 5 * 1024 * 1024;
 export const PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+export const PHOTO_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp'];
 
 export const LOCAL_STORAGE_KEY = 'quartieralert.localReports.v1';
