@@ -18,7 +18,7 @@ Reste pour plus tard : administration, statuts modifiables, authentification ré
 
 ## Phase 3 — Backend
 
-Express, `GET /api/health`, routes de signalement en mémoire ou avec une couche remplaçable, validation, erreurs centralisées, tests.
+Implémentée. Express, `GET /api/health`, `GET /api/reports`, `GET /api/reports/:id` et `POST /api/reports`, validation, erreurs centralisées, pagination et tests. Le dépôt en mémoire est vide au démarrage, temporaire et remplaçable. Le frontend n’est pas encore connecté.
 
 ## Phase 4 — Base de données
 

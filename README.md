@@ -16,24 +16,27 @@ QuartierAlert doit transformer un constat local en signalement structuré, consu
 
 **Phase 1 — initialisation : en place.**
 
-**Phase 2 — interface : en place, en démonstration.** Les pages se parlent entre elles. Les chiffres sont calculés à partir de fiches fictives, plus les brouillons saisis dans l’onglet. Rien n’est envoyé à un serveur.
+**Phase 2 — interface : en place, en démonstration.** Les pages se parlent entre elles. Les chiffres sont calculés à partir de fiches fictives, plus les brouillons saisis dans l’onglet.
+
+**Phase 3 — API : implémentée avec un stockage temporaire en mémoire.** L’API peut lire et créer des signalements, mais le frontend n’y est pas encore connecté et les données disparaissent au redémarrage.
 
 | Fonctionnalité | État |
 | --- | --- |
 | Accueil, liste, détail, formulaire, carte, à propos, connexion | Visibles, données fictives ou brouillon d’onglet |
 | Administration et changement de statut | Non commencé (phase 7) |
-| API REST | Non commencé (phase 3) |
+| API REST (santé, lecture, création, validation) | Implémentée en phase 3, stockage en mémoire |
 | PostgreSQL, Supabase Auth, RLS | Non commencé (phase 4). La page Connexion ne crée pas de compte |
-| Persistance d’un signalement | Non commencé (phase 5). `sessionStorage` seulement |
+| Persistance durable d’un signalement | Non commencé (phase 4). L’API phase 3 utilise la mémoire volatile ; le frontend utilise encore `sessionStorage` |
 | Classification, résumé et doublons (Gemini) | Non commencé (phase 6) |
-| Tests | `npm test` couvre la validation, les calculs, les fiches fictives et les pages. Le parcours navigateur se vérifie à part |
+| Tests | `npm test` couvre l’API, la validation, les calculs, les fiches fictives et les pages. Le parcours navigateur se vérifie à part |
 
 ## Technologies
 
 L’interface est en HTML, CSS et JavaScript, sans framework. Leaflet 1.9.4 (dernière version publiée sur npm au moment de l’intégration) est copié dans `frontend/assets/vendor/leaflet/` sous licence BSD 2-Clause.
 
+Le backend utilise Node.js et Express pour l’API REST.
+
 La suite prévue :
-- Backend : Node.js, Express, API REST.
 - Données et comptes : Supabase (PostgreSQL, Auth, Storage si les photos sont configurées).
 - Assistance : API Gemini, côté serveur uniquement.
 - Tests : exécuteur de tests Node.js (`node --test`).
@@ -47,7 +50,11 @@ git clone <url-du-depot> QuartierAlert
 cd QuartierAlert
 ```
 
-Aucune dépendance npm n’est déclarée pour l’instant. `npm install` n’est pas nécessaire tant que la phase 3 n’a pas ajouté Express et les autres paquets.
+Installer Express, dépendance du backend :
+
+```bash
+npm install
+```
 
 ## Configuration
 
@@ -55,7 +62,7 @@ Aucune dépendance npm n’est déclarée pour l’instant. `npm install` n’es
 cp .env.example .env
 ```
 
-Renseigner `.env` seulement au moment où le serveur et Supabase existeront. Les noms attendus sont dans `.env.example`. Le fichier `.env` est ignoré par Git.
+Renseigner `.env` uniquement lors de l’intégration Supabase/Gemini. Le serveur API lit actuellement `PORT` depuis l’environnement du processus ; il ne charge pas `.env`. Le fichier `.env` est ignoré par Git.
 
 Variables prévues :
 
@@ -81,11 +88,13 @@ npm run frontend
 
 Ouvrir `http://127.0.0.1:4173`. Le module JavaScript ne fonctionne pas en ouvrant le fichier directement (`file://`). Le port se change avec `FRONTEND_PORT` dans l’environnement de la commande, pas via `.env` : ce fichier n’est pas encore lu.
 
+Dans un autre terminal, démarrer l’API :
+
 ```bash
 npm start
 ```
 
-Cette commande échoue volontairement. Le serveur API n’existe pas encore (`backend/src/server.js` sera créé en phase 3).
+L’API est disponible sur `http://127.0.0.1:3000/api`. Les routes et exemples sont documentés dans [docs/api.md](docs/api.md).
 
 ## Tests
 
@@ -93,20 +102,20 @@ Cette commande échoue volontairement. Le serveur API n’existe pas encore (`ba
 npm test
 ```
 
-22 tests Node.js passent sur cette machine après la phase 2 : validation, statistiques, fiches fictives, chemins du serveur statique et présence des pages. Cela ne remplace pas une vérification dans le navigateur.
+Les tests Node.js couvrent la validation métier, l’interface et les routes de l’API. Ils ne remplacent pas une vérification dans le navigateur.
 
 ## Structure
 
 ```text
 frontend/          pages, styles, scripts, illustrations, Leaflet 1.9.4
-backend/src/       dossiers vides (API en phase 3)
+backend/src/       application Express, routes, contrôleurs, service et dépôt mémoire
 database/          schema.sql commenté, migrations et seeds vides
 docs/              documentation d’état
-tests/             validation, statistiques, données, pages, chemins
+tests/             tests métier, pages, serveur statique et API HTTP
 scripts/           serveur statique de l’interface
 ```
 
-`backend/src/app.js` et `backend/src/server.js` ne sont pas encore créés.
+Le serveur API et le serveur frontend sont distincts et se lancent dans deux terminaux.
 
 ## Sécurité
 
@@ -116,19 +125,22 @@ Mesures déjà en place :
 - `.env.example` ne contient aucune valeur secrète.
 - La clé `service_role` est documentée comme réservée au backend.
 - Le serveur statique refuse les chemins qui sortent de `frontend/`, n’accepte que GET et HEAD, et envoie des en-têtes de base.
+- L’API limite les corps JSON à 10 Ko, valide les données et n’accepte aucun statut, rôle ou auteur fourni par le client.
+- Les erreurs API n’exposent pas les traces internes.
 - Les textes saisis sont affichés comme texte, pas comme HTML.
 - Une photo locale dont l’adresse n’est pas une illustration `assets/demo/` n’est pas affichée.
 - La position GPS n’est demandée qu’au clic.
 
-Mesures pas encore en place : validation serveur, CORS de l’API, limitation de fréquence, authentification, politiques RLS. Les en-têtes du serveur statique ne protègent pas une future API. Prévoir Supabase ne rend pas l’application sûre.
+Mesures pas encore en place : CORS, limitation de fréquence, authentification et politiques RLS. Le dépôt mémoire n’est pas une base durable et l’API ne doit pas être exposée telle quelle en production. Les en-têtes du serveur statique ne protègent pas l’API.
 
 ## Roadmap
 
-L’ordre retenu est décrit dans [docs/roadmap.md](docs/roadmap.md). Prochaine étape proposée : phase 3, l’API.
+L’ordre retenu est décrit dans [docs/roadmap.md](docs/roadmap.md). Prochaine étape proposée : phase 4, les migrations PostgreSQL et les politiques RLS.
 
 ## Limites
 
-- Aucune donnée n’est enregistrée sur un serveur. Un brouillon d’onglet disparaît à sa fermeture.
+- Les brouillons du frontend disparaissent à la fermeture de l’onglet. Les signalements créés par l’API restent en mémoire jusqu’au redémarrage du serveur.
+- Le frontend continue à utiliser les fiches fictives et les brouillons locaux ; il ne consomme pas encore l’API.
 - Les indicateurs portent sur des fiches fictives, annoncées comme telles.
 - Aucun compte ne peut être créé.
 - La carte dépend du serveur public de tuiles OpenStreetMap, qui n’est pas un service garanti.

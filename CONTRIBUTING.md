@@ -32,4 +32,4 @@ Avant de proposer une fusion :
 
 ## État actuel
 
-`npm test` exécute les tests Node.js présents. Les lancer avant une pull request. L’API et ses tests d’autorisation ne sont pas encore écrits.
+`npm test` exécute les tests Node.js présents. Les lancer avant une pull request. Les tests API utilisent un dépôt mémoire isolé ; les tests d’autorisation attendent l’ajout de l’authentification et des rôles.
