@@ -9,8 +9,11 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node -e \"console.error('QuartierAlert : le serveur API n’est pas encore implémenté (prévu en phase 3). Interface : npm run frontend'); process.exit(1)\"",
+    "start": "node backend/src/server.js",
     "frontend": "node scripts/serve-frontend.js",
     "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.22.3"
   }
 }
